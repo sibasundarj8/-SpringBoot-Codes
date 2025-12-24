@@ -1,11 +1,17 @@
 package com.sibasundarjena.jpaTutorial.jpaTuts.repositories;
 
+import com.sibasundarjena.jpaTutorial.jpaTuts.dtos.CProductInfo;
+import com.sibasundarjena.jpaTutorial.jpaTuts.dtos.CProductPriceType;
+import com.sibasundarjena.jpaTutorial.jpaTuts.dtos.readOnly.IProductInfo;
 import com.sibasundarjena.jpaTutorial.jpaTuts.entities.ProductEntity;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -68,4 +74,44 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
      * returns the list products which has this 'title' which are sorted on the basis of price.
      */
     List<ProductEntity> findByTitleOrderByPriceAsc(String title);
+
+    /*
+     * returns a projection of ProductEntity containing only product title and product price.
+     * receiving data using Interface-based DTO projection
+     */
+    @Query("select e.title as title, e.price as price from ProductEntity e")
+    List<IProductInfo> findAllProductsNamePrice();
+
+    /*
+     * returns a projection of ProductEntity containing only product title, product price and product quantity.
+     * receiving data using Class-based DTO projection
+     */
+    @Query("""
+            select new com.sibasundarjena.jpaTutorial.jpaTuts.dtos.CProductInfo(
+                e.title, e.price, e.quantity
+            )
+            from ProductEntity e
+            """)
+    List<CProductInfo> findAllProductsNamePriceConcrete();
+
+    /*
+     * returning product-price-types and their counts
+     */
+    @Query("""
+            select new com.sibasundarjena.jpaTutorial.jpaTuts.dtos.CProductPriceType(
+                e.productType, COUNT(e)
+            )
+            from ProductEntity e
+            group by e.productType
+            order by COUNT(e) DESC
+            """)
+    List<CProductPriceType> findAllProductTypeCount();
+
+    /*
+     * Modifying a product title by its Id.
+     */
+    @Transactional
+    @Modifying
+    @Query("UPDATE ProductEntity e set e.title= :title WHERE e.id= :id")
+    int setTitleById(@Param("id") Long id, @Param("title") String title);
 }

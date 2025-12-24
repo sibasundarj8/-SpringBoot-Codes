@@ -1,5 +1,6 @@
 package com.sibasundarjena.jpaTutorial.jpaTuts.entities;
 
+import com.sibasundarjena.jpaTutorial.jpaTuts.entities.eums.ProductType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,6 +41,9 @@ public class ProductEntity {
 
     private BigDecimal price;
     private Integer quantity;
+
+    @Enumerated(EnumType.STRING)
+    private ProductType productType;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
