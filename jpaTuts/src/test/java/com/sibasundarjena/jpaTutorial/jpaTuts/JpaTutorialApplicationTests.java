@@ -5,6 +5,8 @@ import com.sibasundarjena.jpaTutorial.jpaTuts.repositories.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -21,13 +23,13 @@ class JpaTutorialApplicationTests {
 	void contextLoads() {
 	}
 
-    //@Test
+    @Test
     void testRepository() {
         ProductEntity newProduct = ProductEntity.builder()
-                .sku("nestle234")
-                .title("Nestle Chocolate")
-                .price(BigDecimal.valueOf(125.24))
-                .quantity(12)
+                .sku("sku1021")
+                .title("Munch Chocolate")
+                .price(BigDecimal.valueOf(10.25))
+                .quantity(5)
                 .build();
 
         ProductEntity savedProduct = productRepository.save(newProduct);
@@ -64,7 +66,7 @@ class JpaTutorialApplicationTests {
 
     @Test
     void testFindByTitleContainingIgnoreCase(){
-        List<ProductEntity> entity = productRepository.findByTitleContainingIgnoreCase("choco");
+        Page<ProductEntity> entity = productRepository.findByTitleContainingIgnoreCase("choco", PageRequest.of(0, 5));
         System.out.println("[FindByTitleContainingIgnoreCase]: " + entity);
     }
 
