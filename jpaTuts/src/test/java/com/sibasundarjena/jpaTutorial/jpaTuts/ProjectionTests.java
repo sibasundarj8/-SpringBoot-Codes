@@ -3,7 +3,9 @@ package com.sibasundarjena.jpaTutorial.jpaTuts;
 import com.sibasundarjena.jpaTutorial.jpaTuts.dtos.CProductInfo;
 import com.sibasundarjena.jpaTutorial.jpaTuts.dtos.CProductPriceType;
 import com.sibasundarjena.jpaTutorial.jpaTuts.dtos.readOnly.IProductInfo;
+import com.sibasundarjena.jpaTutorial.jpaTuts.entities.ProductEntity;
 import com.sibasundarjena.jpaTutorial.jpaTuts.repositories.ProductRepository;
+import com.sibasundarjena.jpaTutorial.jpaTuts.services.ProductService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +17,9 @@ public class ProjectionTests {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private ProductService productService;
 
     @Test
     public void productInterfaceProjection() {
@@ -47,5 +52,10 @@ public class ProjectionTests {
     public void dmlQueryTest() {
         int rowAffected = productRepository.setTitleById(1L, "Sibasundar Jena");
         System.out.println(rowAffected + "rows affected");
+    }
+
+    @Test
+    public void persistenceContextTest() {
+        productService.findProductById();
     }
 }
