@@ -11,6 +11,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -50,4 +52,15 @@ public class ProductEntity {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    private CartEntity cart;
+
+    @OneToOne
+    @JoinColumn(name = "warranty_id")
+    private ProductWarrantyEntity warranty;
+
+    @ManyToMany(mappedBy = "products")
+    private Set<DiscountCouponEntity> coupons = new HashSet<>();
 }
