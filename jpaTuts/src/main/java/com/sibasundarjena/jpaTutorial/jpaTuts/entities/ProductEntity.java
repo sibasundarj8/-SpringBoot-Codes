@@ -53,13 +53,13 @@ public class ProductEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "warranty_id")
+    private WarrantyEntity warranty;
+
     @ManyToOne
     @JoinColumn(name = "cart_id")
     private CartEntity cart;
-
-    @OneToOne
-    @JoinColumn(name = "warranty_id")
-    private ProductWarrantyEntity warranty;
 
     @ManyToMany(mappedBy = "products")
     private Set<DiscountCouponEntity> coupons = new HashSet<>();

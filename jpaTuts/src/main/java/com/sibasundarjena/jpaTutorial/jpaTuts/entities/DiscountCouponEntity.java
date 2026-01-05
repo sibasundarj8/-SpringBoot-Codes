@@ -13,7 +13,7 @@ public class DiscountCouponEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final Long id;
 
     private Double minSpend;    // minimum spend to get discount.
     private Double percentage;  // discount this percent of total amount.
