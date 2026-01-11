@@ -2,10 +2,7 @@ package com.sibasundarjena.jpaTutorial.jpaTuts.entities;
 
 import com.sibasundarjena.jpaTutorial.jpaTuts.entities.eums.ProductType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -55,10 +52,12 @@ public class ProductEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "warranty_id")
+    @ToString.Exclude
     private WarrantyEntity warranty;
 
     @ManyToOne
     @JoinColumn(name = "cart_id")
+    @ToString.Exclude
     private CartEntity cart;
 
     @ManyToMany(mappedBy = "products")

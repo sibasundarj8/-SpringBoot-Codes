@@ -1,6 +1,7 @@
 package com.sibasundarjena.jpaTutorial.jpaTuts;
 
 import com.sibasundarjena.jpaTutorial.jpaTuts.entities.WarrantyEntity;
+import com.sibasundarjena.jpaTutorial.jpaTuts.services.ProductService;
 import com.sibasundarjena.jpaTutorial.jpaTuts.services.WarrantyService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class CascadingTests {
     @Autowired
     private WarrantyService warrantyService;
 
+    @Autowired
+    private ProductService productService;
+
     @Test
     void warrantyAssigningTest() {
         WarrantyEntity warranty = WarrantyEntity.builder()
@@ -25,5 +29,7 @@ public class CascadingTests {
         WarrantyEntity assignedWarranty = warrantyService.assignWarranty(warranty, 1L);
 
         System.out.println(assignedWarranty.getWarrantyTerms());
+
+        productService.deleteProductById(1L);
     }
 }

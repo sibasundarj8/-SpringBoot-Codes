@@ -1,14 +1,18 @@
 package com.sibasundarjena.jpaTutorial.jpaTuts.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "warranty_table")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class WarrantyEntity {
 
@@ -16,10 +20,10 @@ public class WarrantyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private final Integer warrantyPeriod; // number of months
-    private final String warrantyTerms;   // terms (e.g. No physical damage recovery)
+    private Integer warrantyPeriod; // number of months
+    private String warrantyTerms;   // terms (e.g. No physical damage recovery)
 
-    private final LocalDate productBuyDate;
+    private LocalDate productBuyDate;
 
     @OneToOne(mappedBy = "warranty")
     private ProductEntity product;  // inverse side

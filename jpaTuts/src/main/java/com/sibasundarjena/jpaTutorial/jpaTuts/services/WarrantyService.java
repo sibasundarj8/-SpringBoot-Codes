@@ -26,6 +26,8 @@ public class WarrantyService {
         // optional -> bidirectional mapping.
         warranty.setProduct(product);
 
+        System.out.println(product);
+
         return warranty;
     }
 }
