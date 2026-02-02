@@ -1,5 +1,6 @@
 package com.sibasundarjena.jpaTutorial.jpaTuts.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sibasundarjena.jpaTutorial.jpaTuts.entities.eums.ProductType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -53,13 +54,16 @@ public class ProductEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "warranty_id")
     @ToString.Exclude
+    @JsonIgnore
     private WarrantyEntity warranty;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
     @ToString.Exclude
+    @JsonIgnore
     private CartEntity cart;
 
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<DiscountCouponEntity> coupons = new HashSet<>();
 }

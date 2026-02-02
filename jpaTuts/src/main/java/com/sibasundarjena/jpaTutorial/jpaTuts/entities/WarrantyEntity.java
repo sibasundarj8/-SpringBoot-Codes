@@ -1,5 +1,6 @@
 package com.sibasundarjena.jpaTutorial.jpaTuts.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,5 +27,6 @@ public class WarrantyEntity {
     private LocalDate productBuyDate;
 
     @OneToOne(mappedBy = "warranty")
+    @JsonIgnore
     private ProductEntity product;  // inverse side
 }

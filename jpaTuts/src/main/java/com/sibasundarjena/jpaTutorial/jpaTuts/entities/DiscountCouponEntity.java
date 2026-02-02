@@ -1,5 +1,6 @@
 package com.sibasundarjena.jpaTutorial.jpaTuts.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,5 +26,6 @@ public class DiscountCouponEntity {
             joinColumns = @JoinColumn(name = "coupon_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
+    @JsonIgnore
     private Set<ProductEntity> products = new HashSet<>();
 }

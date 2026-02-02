@@ -1,6 +1,9 @@
 package com.sibasundarjena.jpaTutorial.jpaTuts.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "cart_table")
+@Data
 public class CartEntity {
 
     @Id
@@ -16,7 +20,9 @@ public class CartEntity {
     private Long id;
 
     @OneToMany(mappedBy = "cart")
-    private List<ProductEntity> products;
+    @JsonIgnore
+    @ToString.Exclude
+    private List<CartItemEntity> items;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
