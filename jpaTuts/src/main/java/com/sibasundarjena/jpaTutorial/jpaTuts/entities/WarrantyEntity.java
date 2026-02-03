@@ -26,5 +26,6 @@ public class WarrantyEntity {
     @OneToOne(mappedBy = "warranty")
     @JsonIgnore
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private ProductEntity product;  // inverse side
 }

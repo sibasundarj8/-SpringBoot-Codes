@@ -1,5 +1,6 @@
 package com.sibasundarjena.jpaTutorial.jpaTuts.services;
 
+import com.sibasundarjena.jpaTutorial.jpaTuts.dtos.readOnly.IProductWarranty;
 import com.sibasundarjena.jpaTutorial.jpaTuts.entities.ProductEntity;
 import com.sibasundarjena.jpaTutorial.jpaTuts.entities.WarrantyEntity;
 import com.sibasundarjena.jpaTutorial.jpaTuts.repositories.ProductRepository;
@@ -64,5 +65,9 @@ public class ProductService {
 
     public List<ProductEntity> findAllProductsWithWarranty() {
         return productRepository.findAllProductsWithWarranty();
+    }
+
+    public List<IProductWarranty> findAllProductsWarranty() {
+        return productRepository.findAllProductsWithWarrantyDto();
     }
 }

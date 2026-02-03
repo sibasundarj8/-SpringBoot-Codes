@@ -54,17 +54,20 @@ public class ProductEntity {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "warranty_id")
     // @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @JsonIgnore
     private WarrantyEntity warranty;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @JsonIgnore
     private CartEntity cart;
 
     @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     @JsonIgnore
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<DiscountCouponEntity> coupons = new HashSet<>();
 }

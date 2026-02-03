@@ -3,6 +3,7 @@ package com.sibasundarjena.jpaTutorial.jpaTuts.repositories;
 import com.sibasundarjena.jpaTutorial.jpaTuts.dtos.CProductInfo;
 import com.sibasundarjena.jpaTutorial.jpaTuts.dtos.CProductPriceType;
 import com.sibasundarjena.jpaTutorial.jpaTuts.dtos.readOnly.IProductInfo;
+import com.sibasundarjena.jpaTutorial.jpaTuts.dtos.readOnly.IProductWarranty;
 import com.sibasundarjena.jpaTutorial.jpaTuts.entities.ProductEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
@@ -124,4 +125,23 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
            LEFT JOIN FETCH p.warranty
            """)
     List<ProductEntity> findAllProductsWithWarranty();
+
+    /*
+     * Fetch all products with their warranties using DTO mapping to avoid N+1 query problem.
+     * We use a custom DTO instead of entity to return the product info, because it loads everything in one session.
+     */
+    @Query("""
+           select 
+               p.id as id,
+               p.sku as sku,
+               p.title as title,
+               p.price as price,
+               p.quantity as quantity,
+               p.productType as productType,
+               p.createdAt as createdAt,
+               p.updatedAt as updatedAt,
+               p.warranty as warranty
+                from ProductEntity p
+           """)
+    List<IProductWarranty> findAllProductsWithWarrantyDto();
 }
