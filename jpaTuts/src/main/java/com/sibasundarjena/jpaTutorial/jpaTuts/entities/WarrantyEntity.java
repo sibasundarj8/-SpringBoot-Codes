@@ -2,10 +2,7 @@ package com.sibasundarjena.jpaTutorial.jpaTuts.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -28,5 +25,6 @@ public class WarrantyEntity {
 
     @OneToOne(mappedBy = "warranty")
     @JsonIgnore
+    @ToString.Exclude
     private ProductEntity product;  // inverse side
 }

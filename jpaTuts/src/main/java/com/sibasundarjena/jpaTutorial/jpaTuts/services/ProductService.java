@@ -1,10 +1,13 @@
 package com.sibasundarjena.jpaTutorial.jpaTuts.services;
 
 import com.sibasundarjena.jpaTutorial.jpaTuts.entities.ProductEntity;
+import com.sibasundarjena.jpaTutorial.jpaTuts.entities.WarrantyEntity;
 import com.sibasundarjena.jpaTutorial.jpaTuts.repositories.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -31,5 +34,35 @@ public class ProductService {
             throw new EntityNotFoundException("Product not found");
         }
         productRepository.deleteById(productId);
+    }
+
+    @Transactional
+    public ProductEntity changeWarranty(WarrantyEntity warranty, Long productId) {
+        if (!productRepository.existsById(productId)) {
+            throw new EntityNotFoundException("Product not found");
+        }
+
+        ProductEntity product = productRepository.findById(productId).orElseThrow();
+        product.setWarranty(warranty); // dirty checking
+
+        warranty.setProduct(product); // bidirectional (optional)
+
+        return product;
+    }
+
+    @Transactional
+    public ProductEntity removeWarranty(Long productId) {
+        if (!productRepository.existsById(productId)) {
+            throw new EntityNotFoundException("Product not found");
+        }
+
+        ProductEntity product = productRepository.findById(productId).orElseThrow();
+        product.setWarranty(null); // dirty checking
+
+        return product;
+    }
+
+    public List<ProductEntity> findAllProductsWithWarranty() {
+        return productRepository.findAllProductsWithWarranty();
     }
 }

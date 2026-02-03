@@ -114,4 +114,14 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     @Modifying
     @Query("UPDATE ProductEntity e set e.title= :title WHERE e.id= :id")
     int setTitleById(@Param("id") Long id, @Param("title") String title);
+
+    /*
+     * Fetch all products with their warranties using JOIN FETCH to avoid LazyInitializationException and N+1 query problem.
+     * We use a custom query instead of findAll() because Hibernate loads lazy relations separately by default.
+     */
+    @Query("""
+           select p from ProductEntity p
+           LEFT JOIN FETCH p.warranty
+           """)
+    List<ProductEntity> findAllProductsWithWarranty();
 }

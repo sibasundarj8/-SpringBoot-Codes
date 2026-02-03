@@ -51,9 +51,9 @@ public class ProductEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "warranty_id")
-    @ToString.Exclude
+    // @ToString.Exclude
     @JsonIgnore
     private WarrantyEntity warranty;
 
@@ -65,5 +65,6 @@ public class ProductEntity {
 
     @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     @JsonIgnore
+    @ToString.Exclude
     private Set<DiscountCouponEntity> coupons = new HashSet<>();
 }
