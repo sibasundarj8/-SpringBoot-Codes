@@ -131,7 +131,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
      * We use a custom DTO instead of entity to return the product info, because it loads everything in one session.
      */
     @Query("""
-           select 
+           select
                p.id as id,
                p.sku as sku,
                p.title as title,
