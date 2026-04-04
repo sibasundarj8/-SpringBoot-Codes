@@ -1,5 +1,6 @@
 package com.sibasundar.prod_ready_features.prod_ready_features.entities;
 
+import com.sibasundar.prod_ready_features.prod_ready_features.entities.base.AuditableUserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,28 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PostEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class PostEntity extends AuditableUserEntity {
     private String title;
     private String description;
-
-    @PrePersist
-    void beforeSave() {
-
-    }
-
-    @PreUpdate
-    void beforeUpdate() {
-
-    }
-
-    @PreRemove
-    void beforeDelete() {
-
-    }
-
-
 }

@@ -34,5 +34,4 @@ public class PostController {
         return postService.updatePost(inputPost, postId);
     }
 
-
 }
